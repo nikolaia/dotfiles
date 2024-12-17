@@ -76,5 +76,10 @@
       pattern = "*.bicep";
       command = "set filetype=bicep";   
     }
+    {
+      event = [ "BufNewFile" "BufRead" ];
+      pattern = [ "*.fs" "*.fsx" "*.fsi" ];
+      command = "set filetype=fsharp";
+    }
   ];
 }
