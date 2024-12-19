@@ -1,24 +1,58 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   plugins = {
-    lsp-lines = {enable = true;};
-    lsp-format = {enable = true;};
-    helm = {enable = true;};
+    lsp-lines = {
+      enable = true;
+    };
+    lsp-format = {
+      enable = true;
+    };
+    helm = {
+      enable = true;
+    };
     lsp = {
       enable = true;
       inlayHints = true;
       servers = {
-        html = {enable = true;};
-        lua_ls = {enable = true;};
-        nil_ls = {enable = true;};
-        marksman = {enable = true;};
-        pyright = {enable = true;};
-        gopls = {enable = true;};
-        terraformls = {enable = true;};
-        ts_ls = {enable = true;};
-        ansiblels = {enable = true;};
-        jsonls = {enable = true;};
-        csharp_ls = {enable = true;};
-        fsautocomplete = {enable = true;};
+        html = {
+          enable = true;
+        };
+        lua_ls = {
+          enable = true;
+        };
+        nil_ls = {
+          enable = true;
+        };
+        marksman = {
+          enable = true;
+        };
+        pyright = {
+          enable = true;
+        };
+        gopls = {
+          enable = true;
+        };
+        terraformls = {
+          enable = true;
+        };
+        ts_ls = {
+          enable = true;
+        };
+        eslint = {
+          enable = true;
+        };
+        ansiblels = {
+          enable = true;
+        };
+        jsonls = {
+          enable = true;
+        };
+        csharp_ls = {
+          enable = true;
+        };
+        fsautocomplete = {
+          enable = true;
+        };
         helm_ls = {
           enable = true;
           extraOptions = {
@@ -26,7 +60,7 @@
               "helm-ls" = {
                 yamlls = {
                   path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
-              };
+                };
               };
             };
           };
@@ -54,7 +88,10 @@
         };
         bicep = {
           enable = true;
-          cmd = [ "dotnet" "/Users/nikolaia/dev/bicep-langserver/Bicep.LangServer.dll" ];
+          cmd = [
+            "dotnet"
+            "/Users/nikolaia/dev/bicep-langserver/Bicep.LangServer.dll"
+          ];
           package = null;
         };
       };
@@ -93,6 +130,10 @@
           "<leader>cr" = {
             action = "rename";
             desc = "Rename";
+          };
+          "<leader>ca" = {
+            action = "code_action";
+            desc = "Code Action";
           };
         };
         diagnostic = {

@@ -31,8 +31,8 @@
         imageScans = {
           enable = false;
           exclusions = {
-            namespaces = [];
-            labels = {};
+            namespaces = [ ];
+            labels = { };
           };
         };
         logger = {
@@ -135,11 +135,23 @@
               bgColor = "#1e1e2e";
               chartBgColor = "#1e1e2e";
               dialBgColor = "#1e1e2e";
-              defaultDialColors = ["#a6e3a1" "#f38ba8"];
-              defaultChartColors = ["#a6e3a1" "#f38ba8"];
+              defaultDialColors = [
+                "#a6e3a1"
+                "#f38ba8"
+              ];
+              defaultChartColors = [
+                "#a6e3a1"
+                "#f38ba8"
+              ];
               resourceColors = {
-                cpu = ["#cba6f7" "#89b4fa"];
-                mem = ["#f9e2af" "#fab387"];
+                cpu = [
+                  "#cba6f7"
+                  "#89b4fa"
+                ];
+                mem = [
+                  "#f9e2af"
+                  "#fab387"
+                ];
               };
             };
             yaml = {

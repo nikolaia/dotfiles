@@ -1,6 +1,13 @@
-{pkgs, lib, config, ...} : let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
   isDarwin = pkgs.stdenv.isDarwin;
-in {
+in
+{
   programs.tmux = {
     enable = true;
     sensibleOnTop = true;

@@ -13,7 +13,7 @@
         };
         size = 16.0;
       };
-      
+
       window = {
         startup_mode = "Maximized";
         #opacity = 0.7;
@@ -30,7 +30,10 @@
 
       terminal.shell = {
         program = "/bin/zsh";
-        args = ["-c" "exec fish -l"];
+        args = [
+          "-c"
+          "exec fish -l"
+        ];
       };
 
       colors = {

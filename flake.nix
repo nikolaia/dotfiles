@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin = {
-        url = "github:lnl7/nix-darwin";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -17,52 +17,62 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nixvim, ... }@inputs:
-  let 
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      nixvim,
+      ...
+    }@inputs:
+    let
       darwinConfiguration = import ./darwin-configuration.nix {
         inherit self nixpkgs;
       };
-  in
-  {
-    homeConfigurations = {
-      wsl = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config = {
-            allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-              "terraform"
-            ];
-            permittedInsecurePackages = [
+    in
+    {
+      homeConfigurations = {
+        wsl = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfreePredicate =
+                pkg:
+                builtins.elem (nixpkgs.lib.getName pkg) [
+                  "terraform"
+                ];
+              permittedInsecurePackages = [
                 "dotnet-core-combined"
                 "dotnet-sdk-6.0.428"
                 "dotnet-sdk-7.0.410"
                 "dotnet-sdk-wrapped-6.0.428"
               ];
+            };
           };
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home.nix
+          ];
         };
-        extraSpecialArgs= { inherit inputs; };
+      };
+
+      darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
+        system = "aaarch64-darwin";
         modules = [
-          ./home.nix
+          darwinConfiguration
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = false;
+              users.nikolaia = import ./home.nix;
+              extraSpecialArgs = { inherit inputs; };
+            };
+          }
+          { users.users.nikolaia.home = "/Users/nikolaia"; }
         ];
       };
+      darwinPackages = self.darwinConfigurations.macbook.pkgs;
     };
-
-    darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
-      system = "aaarch64-darwin";
-      modules = [ 
-        darwinConfiguration
-        home-manager.darwinModules.home-manager
-        {
-          home-manager = { 
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            users.nikolaia = import ./home.nix;
-            extraSpecialArgs = { inherit inputs; };
-          };
-        }
-        { users.users.nikolaia.home = "/Users/nikolaia"; }
-      ];
-    };
-    darwinPackages = self.darwinConfigurations.macbook.pkgs;
-  };
 }

@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   config = {
     extraConfigLuaPre =
       # lua
@@ -61,6 +62,7 @@
             return { timeout_ms = 200, lsp_fallback = true }, on_format
            end
         '';
+
         format_after_save = ''
           function(bufnr)
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -74,8 +76,8 @@
             return { lsp_fallback = true }
           end
         '';
-        notifyOnError = true;
-        formattersByFt = {
+        notify_on_error = true;
+        formatters_by_ft = {
           html = [
             [
               "prettierd"
@@ -104,8 +106,8 @@
             "black"
             "isort"
           ];
-          lua = ["stylua"];
-          nix = ["alejandra"];
+          lua = [ "stylua" ];
+          nix = [ "nixfmt-rfc-style" ];
           markdown = [
             [
               "prettierd"
@@ -118,15 +120,15 @@
               "prettier"
             ]
           ];
-          terraform = ["terraform_fmt"];
-          bicep = ["bicep"];
+          terraform = [ "terraform_fmt" ];
+          bicep = [ "bicep" ];
           bash = [
             "shellcheck"
             "shellharden"
             "shfmt"
           ];
-          json = ["jq"];
-          "_" = ["trim_whitespace"];
+          json = [ "jq" ];
+          "_" = [ "trim_whitespace" ];
         };
 
         formatters = {
@@ -135,6 +137,9 @@
           };
           isort = {
             command = "${lib.getExe pkgs.isort}";
+          };
+          nixfmt-rfc-style = {
+            command = "${lib.getExe pkgs.nixfmt-rfc-style}";
           };
           alejandra = {
             command = "${lib.getExe pkgs.alejandra}";

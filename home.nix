@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     ./modules/alacritty.nix
@@ -15,11 +16,7 @@
   ];
 
   home.username = "nikolaia";
-  home.homeDirectory = "/${
-    if pkgs.stdenv.isDarwin
-    then "Users"
-    else "home"
-  }/nikolaia";
+  home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/nikolaia";
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   fonts.fontconfig.enable = true;
@@ -59,10 +56,17 @@
     yarn
     kompose
     google-cloud-sdk
-    (with dotnetCorePackages; combinePackages [
-      sdk_8_0
-      sdk_9_0
-    ])
+
+    (
+      with dotnetCorePackages;
+      combinePackages [
+        sdk_8_0
+        sdk_9_0
+      ]
+    )
+    fsautocomplete
+    fantomas
+
     kind
     cocogitto
     oci-cli
@@ -75,7 +79,7 @@
     #evolution-ews
     #gnomeExtensions.tiling-assistant
 
-    nerd-fonts.jetbrains-mono 
+    nerd-fonts.jetbrains-mono
   ];
 
   home.sessionVariables = {
@@ -91,7 +95,7 @@
       accel-profile = "flat";
     };
     "org/gnome/desktop/input-sources" = {
-      xkb-options = ["caps:escape"];
+      xkb-options = [ "caps:escape" ];
     };
   };
 
