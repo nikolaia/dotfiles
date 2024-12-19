@@ -37,11 +37,14 @@
         };
         ts_ls = {
           enable = true;
+          extraOptions = {
+            capabilities = {
+              documentFormattingProvider = false;
+              documentRangeFormattingProvider = false;
+            };
+          };
         };
         eslint = {
-          enable = true;
-        };
-        ansiblels = {
           enable = true;
         };
         jsonls = {
@@ -153,9 +156,6 @@
       };
     };
   };
-  extraPlugins = with pkgs.vimPlugins; [
-    ansible-vim
-  ];
 
   extraConfigLua = ''
     local _border = "rounded"

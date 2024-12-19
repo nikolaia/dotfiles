@@ -17,12 +17,12 @@
       number = true;
       relativenumber = true;
       clipboard = "unnamedplus";
-      tabstop = 4;
-      softtabstop = 4;
+      tabstop = 2;
+      softtabstop = 2;
       showtabline = 2;
       expandtab = true;
       smartindent = true;
-      shiftwidth = 4;
+      shiftwidth = 2;
       breakindent = true;
       cursorline = true;
       scrolloff = 8;
