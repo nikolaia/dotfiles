@@ -35,6 +35,7 @@
             keywordLength = 3;
           }
           { name = "copilot"; }
+          { name = "cmp_ai"; }
           {
             name = "path"; # file system paths
             keywordLength = 3;

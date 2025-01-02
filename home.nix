@@ -70,6 +70,8 @@
     kind
     cocogitto
     oci-cli
+    ollama
+    fd
 
     # TODO: Move to WSL-specific configuration
     #wsl-open

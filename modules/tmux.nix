@@ -11,7 +11,7 @@ in
   programs.tmux = {
     enable = true;
     sensibleOnTop = true;
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
     baseIndex = 1;
     escapeTime = 5;
     clock24 = true;
