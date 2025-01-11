@@ -62,6 +62,7 @@
         modules = [
           darwinConfiguration
           home-manager.darwinModules.home-manager
+          { nixpkgs.overlays = import ./overlays; }
           {
             home-manager = {
               useGlobalPkgs = true;

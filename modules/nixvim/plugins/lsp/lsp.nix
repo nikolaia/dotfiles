@@ -52,6 +52,8 @@
         };
         csharp_ls = {
           enable = true;
+          cmd = [ "csharp-ls" ];
+          package = null; # Installed through dotnet tool
         };
         fsautocomplete = {
           enable = true;
