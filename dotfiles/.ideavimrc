@@ -1,0 +1,125 @@
+""" Set leader key to space
+let mapleader=" "
+
+""" Clipboard mappings from your existing config
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+
+""" Enable IdeaVim plugins
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set exchange
+set highlightedyank
+set NERDTree
+
+""" IDE specific settings
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+""" Common settings
+set showmode
+set scrolloff=5
+set incsearch
+set number
+set relativenumber
+set hlsearch
+
+""" Navigation mappings - j/k for visual lines
+nnoremap j gj
+nnoremap k gk
+xnoremap j gj
+xnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+xnoremap <Down> gj
+xnoremap <Up> gk
+
+""" Window navigation - same as your NixVim
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+""" Window resizing
+nnoremap <C-Up> :resize +2<CR>
+nnoremap <C-Down> :resize -2<CR>
+nnoremap <C-Left> :vertical resize -2<CR>
+nnoremap <C-Right> :vertical resize +2<CR>
+
+""" Move lines up and down with Alt+j/k
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+""" Create undo points
+inoremap ; ;<c-g>u
+inoremap . .<c-g>u
+
+""" Save file
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+vnoremap <C-s> <Esc>:w<CR>
+
+""" Clear search highlighting
+nnoremap <Esc> :noh<CR><Esc>
+inoremap <Esc> <Esc>:noh<CR>
+nnoremap <leader>ur :nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
+
+""" Search navigation
+nnoremap n nzv
+nnoremap N Nzv
+
+""" Diagnostics navigation
+nnoremap <leader>cd <Action>(ShowErrorDescription)
+nnoremap ]d <Action>(GotoNextError)
+nnoremap [d <Action>(GotoPreviousError)
+nnoremap ]e <Action>(GotoNextError)
+nnoremap [e <Action>(GotoPreviousError)
+nnoremap ]w <Action>(GotoNextError)
+nnoremap [w <Action>(GotoPreviousError)
+
+""" Quit all
+nnoremap <leader>qq :qa<CR>
+
+""" Window management
+nnoremap <leader>ww <C-W>p
+nnoremap <leader>wd <C-W>c
+nnoremap <leader>w- <C-W>s
+nnoremap <leader>w| <C-W>v
+nnoremap <leader>- <C-W>s
+nnoremap <leader>| <C-W>v
+
+""" Tab navigation
+nnoremap <leader><tab>l :tablast<CR>
+nnoremap <leader><tab>f :tabfirst<CR>
+nnoremap <leader><tab><tab> :tabnew<CR>
+nnoremap <leader><tab>] :tabnext<CR>
+nnoremap <leader><tab>d :tabclose<CR>
+nnoremap <leader><tab>[ :tabprevious<CR>
+
+""" IDE specific actions
+nnoremap <leader>f <Plug>(easymotion-s)
+nnoremap <leader>e <Plug>(easymotion-f)
+nnoremap <leader>d <Action>(Debug)
+nnoremap <leader>r <Action>(RenameElement)
+nnoremap <leader>c <Action>(Stop)
+nnoremap <leader>z <Action>(ToggleDistractionFreeMode)
+nnoremap <leader>s <Action>(SelectInProjectView)
+nnoremap <leader>a <Action>(Annotate)
+nnoremap <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+nnoremap <S-Space> <Action>(GotoNextError)
+nnoremap <leader>b <Action>(ToggleLineBreakpoint)
+nnoremap <leader>o <Action>(FileStructurePopup)

@@ -1,8 +1,13 @@
 {
   inputs,
   pkgs,
+  lib,
+  config,
   ...
 }:
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
@@ -73,6 +78,10 @@
     ollama
     fd
 
+    jdk
+    gradle
+    kotlin
+
     # TODO: Move to WSL-specific configuration
     #wsl-open
 
@@ -101,6 +110,33 @@
     };
   };
 
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+  home.file = lib.mkMerge [
+    {
+      ".gitignore_global".text = ''
+        .DS_Store
+        .idea/
+      '';
+      ".ideavimrc".source = dotfiles/.ideavimrc;
+    }
+
+    (lib.mkIf isDarwin {
+      "Library/KeyBindings/DefaultKeyBinding.dict".text = ''
+        {
+            /* Remap Home key to move to beginning of line */
+            "\UF729" = "moveToBeginningOfLine:";
+
+            /* Remap End key to move to end of line */
+            "\UF72B" = "moveToEndOfLine:";
+        }
+      '';
+      ".testcontainers.properties".text = ''
+        docker.socket.override=/var/run/docker.sock
+        docker.host=unix:///${config.home.homeDirectory}/.colima/default/docker.sock
+      '';
+    })
+  ];
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

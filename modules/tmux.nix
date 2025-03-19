@@ -1,12 +1,7 @@
 {
   pkgs,
-  lib,
-  config,
   ...
 }:
-let
-  isDarwin = pkgs.stdenv.isDarwin;
-in
 {
   programs.tmux = {
     enable = true;
@@ -45,49 +40,4 @@ in
     '';
   };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = lib.mkMerge [
-    {
-      # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-      # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-      # # symlink to the Nix store copy.
-      # ".screenrc".source = dotfiles/screenrc;
-      # # You can also set the file content immediately.
-      # ".gradle/gradle.properties".text = ''
-      #   org.gradle.console=verbose
-      #   org.gradle.daemon.idletimeout=3600000
-      # '';
-      #
-      ".gitignore_global".text = ''
-        .DS_Store
-        .idea/
-      '';
-      ".ideavimrc".text = ''
-        let mapleader=" "
-        vmap <Leader>y "+y
-        vmap <Leader>d "+d
-        vmap <Leader>p "+p
-        vmap <Leader>P "+P
-        nmap <Leader>p "+p
-        nmap <Leader>P "+P
-      '';
-    }
-
-    (lib.mkIf isDarwin {
-      "Library/KeyBindings/DefaultKeyBinding.dict".text = ''
-        {
-            /* Remap Home key to move to beginning of line */
-            "\UF729" = "moveToBeginningOfLine:";
-
-            /* Remap End key to move to end of line */
-            "\UF72B" = "moveToEndOfLine:";
-        }
-      '';
-      ".testcontainers.properties".text = ''
-        docker.socket.override=/var/run/docker.sock
-        docker.host=unix:///${config.home.homeDirectory}/.colima/default/docker.sock
-      '';
-    })
-  ];
 }
