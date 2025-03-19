@@ -79,28 +79,21 @@
         notify_on_error = true;
         formatters_by_ft = {
           html = [
-            [
-              "prettierd"
-              "prettier"
-            ]
+            "prettierd"
+            "prettier"
+
           ];
           css = [
-            [
-              "prettierd"
-              "prettier"
-            ]
+            "prettierd"
+            "prettier"
           ];
           javascript = [
-            [
-              "prettierd"
-              "prettier"
-            ]
+            "prettierd"
+            "prettier"
           ];
           typescript = [
-            [
-              "prettierd"
-              "prettier"
-            ]
+            "prettierd"
+            "prettier"
           ];
           python = [
             "black"
@@ -115,10 +108,8 @@
             ]
           ];
           yaml = [
-            [
-              "prettierd"
-              "prettier"
-            ]
+            "prettierd"
+            "prettier"
           ];
           terraform = [ "terraform_fmt" ];
           bicep = [ "bicep" ];
@@ -129,6 +120,17 @@
           ];
           json = [ "jq" ];
           "_" = [ "trim_whitespace" ];
+        };
+
+        extraOptions = {
+          formatters_by_ft_opt = {
+            html.stop_after_first = true;
+            css.stop_after_first = true;
+            javascript.stop_after_first = true;
+            typescript.stop_after_first = true;
+            markdown.stop_after_first = true;
+            yaml.stop_after_first = true;
+          };
         };
 
         formatters = {

@@ -35,6 +35,7 @@ _: {
       ./plugins/editor/copilot-chat.nix
       ./plugins/editor/navic.nix
       ./plugins/editor/trouble.nix
+      ./plugins/editor/tsc.nix
 
       # UI plugins
       ./plugins/ui/webdevicons.nix
