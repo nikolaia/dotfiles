@@ -9,6 +9,8 @@
       # lua
       ''
         local slow_format_filetypes = {}
+        -- Add this to prevent format loops
+        local format_in_progress = false
 
         vim.api.nvim_create_user_command("FormatDisable", function(args)
            if args.bang then
@@ -43,74 +45,43 @@
     plugins.conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = ''
-          function(bufnr)
-            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-              return
-            end
-
-            if slow_format_filetypes[vim.bo[bufnr].filetype] then
-              return
-            end
-
-            local function on_format(err)
-              if err and err:match("timeout$") then
-                slow_format_filetypes[vim.bo[bufnr].filetype] = true
-              end
-            end
-
-            return { timeout_ms = 200, lsp_fallback = true }, on_format
-           end
-        '';
-
-        format_after_save = ''
-          function(bufnr)
-            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-              return
-            end
-
-            if not slow_format_filetypes[vim.bo[bufnr].filetype] then
-              return
-            end
-
-            return { lsp_fallback = true }
-          end
-        '';
-        notify_on_error = true;
         formatters_by_ft = {
-          html = [
-            "prettierd"
-            "prettier"
-
-          ];
-          css = [
-            "prettierd"
-            "prettier"
-          ];
-          javascript = [
-            "prettierd"
-            "prettier"
-          ];
-          typescript = [
-            "prettierd"
-            "prettier"
-          ];
+          html = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true; # Stop after first formatter succeeds
+          };
+          css = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true;
+          };
+          javascript = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true;
+          };
+          typescript = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true;
+          };
           python = [
             "black"
             "isort"
           ];
           lua = [ "stylua" ];
           nix = [ "nixfmt-rfc-style" ];
-          markdown = [
-            [
-              "prettierd"
-              "prettier"
-            ]
-          ];
-          yaml = [
-            "prettierd"
-            "prettier"
-          ];
+          markdown = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true;
+          };
+          yaml = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            stop_after_first = true;
+          };
           terraform = [ "terraform_fmt" ];
           bicep = [ "bicep" ];
           bash = [
@@ -121,18 +92,59 @@
           json = [ "jq" ];
           "_" = [ "trim_whitespace" ];
         };
+        format_on_save = ''
+          function(bufnr)
+            -- Prevent format loops
+            if format_in_progress then
+              return
+            end
 
-        extraOptions = {
-          formatters_by_ft_opt = {
-            html.stop_after_first = true;
-            css.stop_after_first = true;
-            javascript.stop_after_first = true;
-            typescript.stop_after_first = true;
-            markdown.stop_after_first = true;
-            yaml.stop_after_first = true;
-          };
-        };
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
 
+            if slow_format_filetypes[vim.bo[bufnr].filetype] then
+              return
+            end
+
+            local function on_format(err)
+              format_in_progress = false
+              if err and err:match("timeout$") then
+                slow_format_filetypes[vim.bo[bufnr].filetype] = true
+              end
+            end
+
+            format_in_progress = true
+            return { timeout_ms = 200, lsp_fallback = "fallback_only" }, on_format
+          end
+        '';
+        format_after_save = ''
+          function(bufnr)
+            -- Prevent format loops
+            if format_in_progress then
+              return
+            end
+
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
+
+            if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+              return
+            end
+
+            format_in_progress = true
+            local ret = { lsp_fallback = "fallback_only" }
+
+            -- Reset format_in_progress after format completes
+            vim.defer_fn(function()
+              format_in_progress = false
+            end, 300)
+
+            return ret
+          end
+        '';
+        notify_on_error = true;
         formatters = {
           black = {
             command = "${lib.getExe pkgs.black}";
@@ -167,9 +179,6 @@
           bicep = {
             command = "${lib.getExe pkgs.bicep}";
           };
-          #yamlfmt = {
-          #  command = "${lib.getExe pkgs.yamlfmt}";
-          #};
         };
       };
     };
