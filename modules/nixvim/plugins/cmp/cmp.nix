@@ -27,14 +27,20 @@
         };
         sources = [
           { name = "git"; }
-          { name = "nvim_lsp"; }
+          {
+            name = "nvim_lsp";
+            priority = 1000;
+          }
           { name = "emoji"; }
           {
             name = "buffer"; # text within current buffer
             option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
             keywordLength = 3;
           }
-          { name = "copilot"; }
+          {
+            name = "copilot";
+            priority = 750;
+          }
           { name = "cmp_ai"; }
           {
             name = "path"; # file system paths
@@ -61,7 +67,8 @@
           "<C-e>" = "cmp.mapping.abort()";
           "<C-b>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<CR>" = "cmp.mapping({
+          "<CR>" =
+            "cmp.mapping({
             i = function(fallback)
               if cmp.visible() then
                 cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
