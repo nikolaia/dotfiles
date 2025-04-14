@@ -1,6 +1,9 @@
 _: {
   plugins.copilot-chat = {
     enable = true;
+    settings = {
+      model = "sonnet-3.7-thinking";
+    };
   };
 
   keymaps = [
