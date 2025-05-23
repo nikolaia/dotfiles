@@ -2,7 +2,7 @@ _: {
   plugins.copilot-chat = {
     enable = true;
     settings = {
-      model = "copilot:claude-3.7-sonnet";
+      model = "claude-3.7-sonnet-thought"; # 3: Claude 3.7 Sonnet Thinking (copilot:claude-3.7-sonnet-thought)
     };
   };
 

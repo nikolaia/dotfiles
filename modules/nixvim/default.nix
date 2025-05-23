@@ -42,6 +42,7 @@ _: {
       ./plugins/ui/bufferline.nix
       ./plugins/ui/lualine.nix
       ./plugins/ui/startup.nix
+      ./plugins/ui/hardtime.nix
 
       # LSP and formatting
       ./plugins/lsp/lsp.nix
