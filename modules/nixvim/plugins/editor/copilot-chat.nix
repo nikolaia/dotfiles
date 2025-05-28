@@ -2,7 +2,8 @@ _: {
   plugins.copilot-chat = {
     enable = true;
     settings = {
-      model = "claude-3.7-sonnet-thought"; # 3: Claude 3.7 Sonnet Thinking (copilot:claude-3.7-sonnet-thought)
+      model = "claude-sonnet-4";
+      context = "buffers";
     };
   };
 
@@ -36,6 +37,11 @@ _: {
       key = "<leader>cp";
       action = "<CMD>CopilotChatTests<CR>";
       options.desc = "Add tests for my code";
+    }
+    {
+      key = "<leader>cc";
+      action = "<CMD>CopilotChatCommit<CR>";
+      options.desc = "Give a commit message for the selected code";
     }
   ];
 }

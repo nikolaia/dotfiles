@@ -41,7 +41,7 @@
             name = "copilot";
             priority = 750;
           }
-          { name = "cmp_ai"; }
+          #{ name = "cmp_ai"; }
           {
             name = "path"; # file system paths
             keywordLength = 3;
