@@ -14,7 +14,6 @@
     prefix = "C-a";
     mouse = true;
     plugins = with pkgs; [
-      tmuxPlugins.better-mouse-mode
       tmuxPlugins.vim-tmux-navigator
       {
         plugin = tmuxPlugins.catppuccin;
@@ -34,6 +33,7 @@
     extraConfig = ''
       set -g default-command ${pkgs.fish}/bin/fish
       set -g default-shell ${pkgs.fish}/bin/fish
+      set -g mouse on
       # This requires OSC 52 support in the terminal, which Alacritty has.
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "tmux load-buffer -w && tmux paste-buffer -p"
       bind r source-file ~/.config/tmux/tmux.conf
