@@ -83,6 +83,7 @@
             stop_after_first = true;
           };
           terraform = [ "terraform_fmt" ];
+          kotlin = [ "ktlint" ];
           bicep = [ "bicep" ];
           bash = [
             "shellcheck"
@@ -178,6 +179,9 @@
           };
           bicep = {
             command = "${lib.getExe pkgs.bicep}";
+          };
+          ktlint = {
+            command = "${lib.getExe pkgs.ktlint}";
           };
         };
       };

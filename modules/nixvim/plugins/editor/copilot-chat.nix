@@ -2,7 +2,7 @@ _: {
   plugins.copilot-chat = {
     enable = true;
     settings = {
-      model = "claude-sonnet-4";
+      model = "gpt-4.1";
       context = "buffers";
     };
   };

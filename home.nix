@@ -81,6 +81,7 @@ in
     jdk
     gradle
     kotlin
+    ktlint
 
     # TODO: Move to WSL-specific configuration
     #wsl-open

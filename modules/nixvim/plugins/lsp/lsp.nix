@@ -60,6 +60,12 @@
         };
         kotlin_language_server = {
           enable = true;
+          settings = {
+            capabilities = {
+              documentFormattingProvider = false;
+              documentRangeFormattingProvider = false;
+            };
+          };
         };
         helm_ls = {
           enable = true;
