@@ -53,7 +53,9 @@ in
     sops
     lsd
     neofetch
-    colima
+    (colima.override {
+      lima = lima.override { withAdditionalGuestAgents = true; };
+    })
     kind
     ripgrep
     fzf
