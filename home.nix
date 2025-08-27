@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     ./modules/alacritty.nix
     ./modules/fish.nix
     ./modules/git.nix
@@ -27,24 +27,23 @@ in
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    gcc13
     grc
     curl
     jq
     lazydocker
     lazygit
-    azure-cli
-    azure-functions-core-tools
     mkcert
     docker
+    kind
     kubectl
     kubectx
     kubecm
+    kompose
     ffmpeg
     gnupg
-    nodejs_20
-    terraform
-    s3cmd
+    nodejs_22
+    yarn
+    opentofu
     mob
     gh
     git-extras
@@ -52,18 +51,15 @@ in
     html-tidy
     sops
     lsd
-    neofetch
     (colima.override {
       lima = lima.override { withAdditionalGuestAgents = true; };
     })
     kind
     ripgrep
     fzf
+    fd
     nssTools
-    yarn
-    kompose
-    google-cloud-sdk
-
+    azure-functions-core-tools
     (
       with dotnetCorePackages;
       combinePackages [
@@ -74,11 +70,7 @@ in
     fsautocomplete
     fantomas
 
-    kind
-    cocogitto
-    oci-cli
     ollama
-    fd
 
     jdk
     gradle

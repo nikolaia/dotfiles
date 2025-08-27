@@ -10,7 +10,10 @@
       '';
 
     clipboard = {
-      providers.wl-copy.enable = true;
+      # Use macOS native clipboard instead of wl-clipboard
+      providers.wl-copy.enable = false;
+      # Enable macOS clipboard
+      register = "unnamedplus";
     };
 
     opts = {

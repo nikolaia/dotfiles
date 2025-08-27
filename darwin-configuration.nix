@@ -6,12 +6,6 @@
   system.stateVersion = 4;
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config = {
-    allowUnfreePredicate =
-      pkg:
-      builtins.elem (nixpkgs.lib.getName pkg) [
-        "terraform"
-      ];
-
     permittedInsecurePackages = [
       "dotnet-core-combined"
       "dotnet-sdk-6.0.428"

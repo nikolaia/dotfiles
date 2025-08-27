@@ -37,11 +37,6 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config = {
-              allowUnfreePredicate =
-                pkg:
-                builtins.elem (nixpkgs.lib.getName pkg) [
-                  "terraform"
-                ];
               permittedInsecurePackages = [
                 "dotnet-core-combined"
                 "dotnet-sdk-6.0.428"

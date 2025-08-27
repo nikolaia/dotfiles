@@ -2,9 +2,13 @@
 {
   programs.fish = {
     enable = true;
+    shellAliases = {
+      ll = "lsd -la";
+      dcomp = "docker compose";
+      terraform = "tofu";
+    };
     interactiveShellInit = ''
       # function fish_greeting
-      #  neofetch
       # end
       # fish_update_completions
       export VISUAL=nvim
@@ -15,9 +19,6 @@
       set -g fish_escape_delay_ms 10
 
       fish_add_path ~/.dotnet/tools
-
-      alias ll "lsd -la"
-      alias dcomp "docker compose"
 
       if test -x /opt/homebrew/bin/brew
           eval "$(/opt/homebrew/bin/brew shellenv)"
