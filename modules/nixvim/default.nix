@@ -36,6 +36,7 @@ _: {
       ./plugins/editor/navic.nix
       ./plugins/editor/trouble.nix
       ./plugins/editor/tsc.nix
+      ./plugins/editor/opencode.nix
 
       # UI plugins
       ./plugins/ui/webdevicons.nix
