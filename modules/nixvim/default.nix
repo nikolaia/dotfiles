@@ -22,6 +22,9 @@ _: {
       ./plugins/cmp/lspkind.nix
       ./plugins/cmp/autopairs.nix
 
+      # Debugging
+      ./plugins/debugging/dap.nix
+
       # Snippets
       ./plugins/snippets/luasnip.nix
 
@@ -36,7 +39,6 @@ _: {
       ./plugins/editor/navic.nix
       ./plugins/editor/trouble.nix
       ./plugins/editor/tsc.nix
-      ./plugins/editor/opencode.nix
 
       # UI plugins
       ./plugins/ui/webdevicons.nix

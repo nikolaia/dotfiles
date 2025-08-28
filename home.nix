@@ -69,6 +69,7 @@ in
     )
     fsautocomplete
     fantomas
+    netcoredbg
 
     ollama
 
